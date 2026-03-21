@@ -29,6 +29,16 @@ const PROJECTS: Project[] = [
   },
   {
     id: 2,
+    title: "E-Commerce Platform",
+    description: "Boutique en ligne full-stack avec dashboard admin",
+    problem:
+      "Gestion temps réel des commandes via Supabase Realtime — notifications instantanées et suivi de livraison sans rechargement.",
+    stack: ["Next.js", "TypeScript", "Supabase", "CSS Modules"],
+    tag: "Web",
+    href: "/projects/ecommerce",
+  },
+  {
+    id: 3,
     title: "MelodyHub",
     description: "Plateforme web de découverte musicale",
     problem:
@@ -36,16 +46,6 @@ const PROJECTS: Project[] = [
     stack: ["Next.js", "Tailwind CSS", "PostgreSQL"],
     tag: "Web",
     href: "/projects/melodyhub",
-  },
-  {
-    id: 3,
-    title: "Portfolio",
-    description: "Ce site — conçu comme un outil de conversion",
-    problem:
-      "SSR + SSG pour un score Lighthouse proche de 100 et une expérience fluide sur mobile.",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
-    tag: "Web",
-    href: "/projects/portfolio",
   },
 ];
 
@@ -122,14 +122,24 @@ function Navbar() {
           </Link>
         </div>
 
-        {/* CTA CV — toujours visible */}
-        <a
-          href="/docs/CV_Jean_Enock.pdf"
-          download
-          className="flex items-center gap-2 px-4 py-2 text-xs font-mono tracking-wider border border-white/20 text-white/70 hover:border-white/60 hover:text-white transition-all duration-200 rounded-sm"
-        >
-          <span>↓</span> CV
-        </a>
+        {/* CTA CV — deux actions */}
+        <div className="flex items-center gap-2">
+          {/* Voir la page CV */}
+          <Link
+            href="/cv"
+            className="hidden md:flex items-center gap-1.5 px-4 py-2 text-xs font-mono tracking-wider text-white/50 hover:text-white transition-all duration-200"
+          >
+            <span className="text-white/30">◎</span> CV
+          </Link>
+          {/* Télécharger le PDF */}
+          <a
+            href="/docs/CV_Jean_Enock.pdf"
+            download
+            className="flex items-center gap-2 px-4 py-2 text-xs font-mono tracking-wider border border-white/20 text-white/70 hover:border-white/60 hover:text-white transition-all duration-200 rounded-sm"
+          >
+            <span>↓</span> PDF
+          </a>
+        </div>
       </div>
     </nav>
   );
@@ -209,12 +219,18 @@ function Hero() {
           >
             Me contacter
           </Link>
+          <Link
+            href="/cv"
+            className="px-6 py-3 border border-white/10 text-white/40 text-sm hover:border-white/30 hover:text-white/70 transition-all rounded-sm font-mono flex items-center gap-2"
+          >
+            <span className="text-white/25">◎</span> Voir CV
+          </Link>
           <a
             href="/docs/CV_Jean_Enock.pdf"
             download
             className="px-6 py-3 border border-white/10 text-white/40 text-sm hover:border-white/30 hover:text-white/70 transition-all rounded-sm font-mono"
           >
-            ↓ Download CV
+            ↓ PDF
           </a>
         </div>
 
@@ -224,8 +240,8 @@ function Hero() {
           style={{ animation: "fadeUp 0.6s ease both 0.7s", opacity: 0 }}
         >
           {[
-            { val: "3+", label: "Projets full-stack" },
-            { val: "1", label: "App mobile déployée" },
+            { val: "4+", label: "Projets livrés" },
+            { val: "2", label: "Apps déployées" },
             { val: "2026", label: "Diplôme" },
           ].map((s) => (
             <div key={s.label}>
@@ -388,12 +404,18 @@ function CTABand() {
           >
             Me contacter →
           </Link>
+          <Link
+            href="/cv"
+            className="px-8 py-3 border border-white/20 text-white/60 text-sm hover:border-white/50 hover:text-white transition-all rounded-sm font-mono flex items-center gap-2"
+          >
+            <span className="text-white/30">◎</span> Voir le CV
+          </Link>
           <a
             href="/docs/CV_Jean_Enock.pdf"
             download
-            className="px-8 py-3 border border-white/20 text-white/60 text-sm hover:border-white/50 hover:text-white transition-all rounded-sm font-mono"
+            className="px-8 py-3 border border-white/15 text-white/40 text-sm hover:border-white/40 hover:text-white/70 transition-all rounded-sm font-mono"
           >
-            ↓ Télécharger CV
+            ↓ Télécharger PDF
           </a>
         </div>
       </div>
