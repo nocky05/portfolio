@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { StackBadge } from "@/src/components/ui/StackBadge";
+import { StackBadge, StackRow } from "@/src/components/ui/StackBadge";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Project {
@@ -174,8 +174,12 @@ function Hero() {
 
         {/* Titre principal */}
         <h1
-          className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-none mb-6"
-          style={{ animation: "fadeUp 0.6s ease both 0.2s", opacity: 0 }}
+          className="font-bold tracking-tight text-white leading-none mb-6"
+          style={{
+            fontSize: "clamp(2rem, 9vw, 5rem)",
+            animation: "fadeUp 0.6s ease both 0.2s",
+            opacity: 0,
+          }}
         >
           Jean
           <br />
@@ -273,13 +277,7 @@ function QuickStack() {
         </p>
         <div className="flex flex-wrap gap-3">
           {STACK_ICONS.map((s) => (
-            <div
-              key={s.label}
-              className="flex items-center gap-2 px-4 py-2 border border-white/10 rounded-sm text-sm text-white/50 hover:border-white/30 hover:text-white/80 transition-all duration-200"
-            >
-              <span className="font-mono text-xs text-white/30">{s.icon}</span>
-              {s.label}
-            </div>
+            <StackBadge key={s.label} tech={s.label} theme="dark" size="md" />
           ))}
         </div>
       </div>
@@ -322,7 +320,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       {/* Stack pills */}
       <div className="flex flex-wrap gap-2">
         {project.stack.map((tech) => (
-          <StackBadge key={tech} tech={tech} />
+          <StackBadge key={tech} tech={tech} theme="dark" size="sm" />
         ))}
       </div>
     </Link>
@@ -343,19 +341,11 @@ function FeaturedProjects() {
     >
       <div className="max-w-5xl mx-auto px-6">
         {/* Header section */}
-        <div className="flex items-end justify-between mb-10">
-          <div>
-            <p className="text-xs font-mono text-white/25 tracking-widest uppercase mb-2">
-              Projets
-            </p>
-            <h2 className="text-3xl font-bold text-white">Ce que je construis</h2>
-          </div>
-          <Link
-            href="/projects"
-            className="text-sm text-white/30 hover:text-white/70 transition-colors hidden md:block"
-          >
-            Tous les projets →
-          </Link>
+        <div className="mb-10">
+          <p className="text-xs font-mono text-white/25 tracking-widest uppercase mb-2">
+            Projets
+          </p>
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white whitespace-nowrap">Ce que je construis</h2>
         </div>
 
         {/* Grid projets */}
@@ -365,9 +355,9 @@ function FeaturedProjects() {
           ))}
         </div>
 
-        {/* Lien mobile */}
-        <div className="mt-8 md:hidden">
-          <Link href="/projects" className="text-sm text-white/30 hover:text-white/70">
+        {/* Lien projets */}
+        <div className="mt-8">
+          <Link href="/projects" className="text-sm text-white/30 hover:text-white/70 transition-colors">
             Tous les projets →
           </Link>
         </div>
@@ -391,7 +381,7 @@ function CTABand() {
         <p className="text-xs font-mono text-white/25 tracking-widest uppercase mb-4">
           Disponible dès maintenant
         </p>
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+        <h2 className="font-bold text-white mb-4" style={{ fontSize: "clamp(1.35rem, 5.5vw, 3rem)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
           On travaille ensemble ?
         </h2>
         <p className="text-white/40 mb-10 max-w-md mx-auto text-base">

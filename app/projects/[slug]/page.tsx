@@ -6,8 +6,9 @@
 
 import { use } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
-import { StackBadge } from "@/src/components/ui/StackBadge";
+import { StackRow } from "@/src/components/ui/StackBadge";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface CaseStudy {
@@ -22,7 +23,7 @@ interface CaseStudy {
   solution: string;
   role: string;
   learnings: string;
-  screenshots: { label: string; placeholder: string }[];
+  screenshots: { label: string; image?: string; placeholder: string }[];
   metrics?: { val: string; label: string }[];
 }
 
@@ -41,9 +42,31 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
     role: `Design des écrans (Figma → FlutterFlow), développement du backend Supabase (tables, Row Level Security, Edge Functions), intégration de la géolocalisation et du feed temps réel.`,
     learnings: `Le vrai problème n'était pas l'UI, c'était la latence perçue sur connexion mobile. Implémenter un skeleton loader + une stratégie cache-first a rendu l'app "instantanée" — même à 2G.`,
     screenshots: [
-      { label: "Login", placeholder: "FF" },
-      { label: "Feed", placeholder: "FF" },
-      { label: "Profil", placeholder: "FF" },
+      {
+        label: "Splash Screen",
+        image: "/images/projects/found-food/splash.png",
+        placeholder: "FF",
+      },
+      {
+        label: "Onboarding 1",
+        image: "/images/projects/found-food/onboarding-1.png",
+        placeholder: "FF",
+      },
+      {
+        label: "Onboarding 2",
+        image: "/images/projects/found-food/onboarding-2.png",
+        placeholder: "FF",
+      },
+      {
+        label: "Authentification",
+        image: "/images/projects/found-food/auth.png",
+        placeholder: "FF",
+      },
+      {
+        label: "Fil d'actualité",
+        image: "/images/projects/found-food/home.png",
+        placeholder: "FF",
+      },
     ],
     metrics: [
       { val: "1", label: "App déployée" },
@@ -51,7 +74,7 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
       { val: "3", label: "Providers Context" },
     ],
   },
-  "melodyhub": {
+  melodyhub: {
     slug: "melodyhub",
     title: "MelodyHub",
     pitch: "Plateforme web de découverte et de partage musical.",
@@ -73,7 +96,7 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
       { val: "4NF", label: "Schéma normalisé" },
     ],
   },
-  "portfolio": {
+  portfolio: {
     slug: "portfolio",
     title: "Portfolio",
     pitch: "Conçu comme un outil de conversion, pas un CV en ligne.",
@@ -118,19 +141,32 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
 // ─── Screenshot Card ───────────────────────────────────────────────────────────
 function Screenshot({
   label,
+  image,
   placeholder,
 }: {
   label: string;
+  image?: string;
   placeholder: string;
 }) {
   return (
-    <div className="border border-white/8 rounded-sm overflow-hidden">
-      {/* Placeholder — remplace par <Image /> quand les assets sont prêts */}
-      <div className="aspect-[9/16] bg-white/[0.03] flex flex-col items-center justify-center gap-2">
-        <span className="font-mono text-3xl text-white/5">{placeholder}</span>
-        <span className="text-xs font-mono text-white/15">{label}</span>
+    <div className="border border-white/8 rounded-sm overflow-hidden bg-[#0f0f0f] group">
+      <div className="aspect-[9/16] relative flex flex-col items-center justify-center gap-2 overflow-hidden bg-white/[0.03]">
+        {image ? (
+          <Image
+            src={image}
+            alt={label}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 768px) 33vw, 25vw"
+          />
+        ) : (
+          <>
+            <span className="font-mono text-3xl text-white/5">{placeholder}</span>
+            <span className="text-xs font-mono text-white/15">{label}</span>
+          </>
+        )}
       </div>
-      <div className="px-3 py-2 border-t border-white/5">
+      <div className="px-3 py-2 border-t border-white/5 bg-[#0a0a0a]">
         <span className="text-xs font-mono text-white/25">{label}</span>
       </div>
     </div>
@@ -143,6 +179,7 @@ export default function ProjectDetailPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  // Next 16: params est une Promise en Client Component, on la déplie avec use()
   const { slug } = use(params);
   const project = CASE_STUDIES[slug];
 
@@ -173,8 +210,15 @@ export default function ProjectDetailPage({
 
           {/* Header */}
           <div className="fade mb-10">
-            <span className="text-xs font-mono text-white/25 tracking-wider">{project.tag}</span>
-            <h1 className="text-4xl md:text-5xl font-bold text-white mt-2 mb-3">{project.title}</h1>
+            <span className="text-xs font-mono text-white/25 tracking-wider">
+              {project.tag}
+            </span>
+            <h1
+              className="font-bold text-white mt-2 mb-3"
+              style={{ fontSize: "clamp(1.5rem, 6vw, 3rem)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}
+            >
+              {project.title}
+            </h1>
             <p className="text-white/40 text-lg">{project.pitch}</p>
           </div>
 
@@ -192,11 +236,7 @@ export default function ProjectDetailPage({
 
           {/* Stack + liens */}
           <div className="fade-3 flex flex-wrap items-center gap-3 mb-12 pb-10 border-b border-white/5">
-            <div className="flex flex-wrap gap-2">
-              {project.stack.map((tech) => (
-                <StackBadge key={tech} tech={tech} />
-              ))}
-            </div>
+            <StackRow stack={project.stack} theme="dark" size="sm" />
             <div className="flex gap-3 ml-auto">
               <a
                 href={project.github}
@@ -223,7 +263,9 @@ export default function ProjectDetailPage({
           <div className="space-y-10">
             {/* Problème */}
             <section>
-              <h2 className="text-xs font-mono text-white/25 tracking-widest uppercase mb-4">01 · Le Problème</h2>
+              <h2 className="text-xs font-mono text-white/25 tracking-widest uppercase mb-4">
+                01 · Le Problème
+              </h2>
               <p className="text-white/60 leading-relaxed">{project.problem}</p>
             </section>
 
@@ -237,16 +279,25 @@ export default function ProjectDetailPage({
 
             {/* Rôle */}
             <section>
-              <h2 className="text-xs font-mono text-white/25 tracking-widest uppercase mb-4">03 · Mon Rôle</h2>
+              <h2 className="text-xs font-mono text-white/25 tracking-widest uppercase mb-4">
+                03 · Mon Rôle
+              </h2>
               <p className="text-white/60 leading-relaxed">{project.role}</p>
             </section>
 
             {/* Screenshots */}
             <section>
-              <h2 className="text-xs font-mono text-white/25 tracking-widest uppercase mb-4">04 · Captures d'écran</h2>
+              <h2 className="text-xs font-mono text-white/25 tracking-widest uppercase mb-4">
+                04 · Captures d'écran
+              </h2>
               <div className="grid grid-cols-3 gap-3">
                 {project.screenshots.map((s) => (
-                  <Screenshot key={s.label} label={s.label} placeholder={s.placeholder} />
+                  <Screenshot
+                    key={s.label}
+                    label={s.label}
+                    image={s.image}
+                    placeholder={s.placeholder}
+                  />
                 ))}
               </div>
             </section>

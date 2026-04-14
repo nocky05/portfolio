@@ -30,7 +30,7 @@ const PROJECTS: Project[] = [
     category: "Mobile",
     tag: "Full-Stack · Mobile App",
     stack: ["React Native", "Supabase", "TypeScript", "Expo"],
-    image: "/images/projects/found-food.png",
+    image: "/images/projects/found-food/home.png",
     github: "https://github.com/",
     slug: "found-food",
     featured: true,
@@ -50,7 +50,8 @@ const PROJECTS: Project[] = [
   {
     id: "3",
     title: "E-Commerce Platform",
-    pitch: "Plateforme e-commerce moderne inspirée de Woodbrass — boutique, panier, wishlist et dashboard admin temps réel.",
+    pitch:
+      "Plateforme e-commerce moderne inspirée de Woodbrass — boutique, panier, wishlist et dashboard admin temps réel.",
     category: "Web",
     tag: "Full-Stack · Web App",
     stack: ["Next.js", "TypeScript", "Supabase", "Axios", "CSS Modules"],
@@ -103,22 +104,13 @@ function ProjectCard({ project }: { project: Project }) {
         <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] via-transparent to-transparent z-10 opacity-60" />
 
         {/* Placeholder visuel si pas encore d'image */}
-        <div className="w-full h-full flex items-center justify-center">
-          <span className="font-mono text-4xl text-white/5 select-none tracking-widest">
-            {project.title.slice(0, 2).toUpperCase()}
-          </span>
-        </div>
-
-        {/*
-          Quand tu as les vraies images, remplace le div placeholder par :
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
-        */}
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
 
         {/* Overlay liens — apparaît au hover */}
         <div className="absolute inset-0 z-20 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50">
@@ -165,7 +157,7 @@ function ProjectCard({ project }: { project: Project }) {
         {/* Stack badges */}
         <div className="flex flex-wrap gap-1.5">
           {project.stack.map((tech) => (
-            <StackBadge key={tech} tech={tech} />
+            <StackBadge key={tech} tech={tech} theme="dark" size="sm" />
           ))}
         </div>
       </div>
@@ -197,7 +189,8 @@ export default function ProjectsPage() {
     setTimeout(() => setVisible(true), 250);
   };
 
-  const filtered = activeFilter === "Tous" ? PROJECTS : PROJECTS.filter((p) => p.category === activeFilter);
+  const filtered =
+    activeFilter === "Tous" ? PROJECTS : PROJECTS.filter((p) => p.category === activeFilter);
 
   return (
     <>
@@ -230,10 +223,18 @@ export default function ProjectsPage() {
         <div className="max-w-5xl mx-auto px-6 pt-12 pb-24">
           {/* Header */}
           <div className="mb-12">
-            <p className="text-xs font-mono text-white/25 tracking-widest uppercase mb-3">Projets</p>
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">Ce que je construis</h1>
+            <p className="text-xs font-mono text-white/25 tracking-widest uppercase mb-3">
+              Projets
+            </p>
+            <h1
+              className="font-bold text-white mb-3"
+              style={{ fontSize: "clamp(1.5rem, 6vw, 3rem)", whiteSpace: "nowrap" }}
+            >
+              Ce que je construis
+            </h1>
             <p className="text-white/35 text-base max-w-lg">
-              Chaque projet documente un problème réel, une décision technique, et ce que j'en ai appris.
+              Chaque projet documente un problème réel, une décision technique,
+              et ce que j'en ai appris.
             </p>
           </div>
 

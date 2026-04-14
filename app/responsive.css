@@ -1,0 +1,497 @@
+/*
+ * responsive.css
+ * app/responsive.css
+ *
+ * Importer dans app/layout.tsx :
+ * import "./responsive.css";
+ *
+ * Breakpoints utilisés :
+ * - xs  : < 480px   (petits mobiles)
+ * - sm  : < 640px   (mobiles standard)
+ * - md  : < 768px   (tablettes portrait)
+ * - lg  : < 1024px  (tablettes paysage / petits laptops)
+ * - xl  : ≥ 1280px  (grands écrans)
+ */
+
+/* ─────────────────────────────────────────────────────────────
+   BASE — Appliqué à tous les écrans
+   ───────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  min-width: 320px;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   NAVBAR
+   ───────────────────────────────────────────────────────────── */
+
+/* Menu hamburger — caché par défaut */
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.mobile-menu-btn span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: rgba(255, 255, 255, 0.5);
+  transition: all 0.25s ease;
+}
+.mobile-menu-btn.open span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.mobile-menu-btn.open span:nth-child(2) {
+  opacity: 0;
+}
+.mobile-menu-btn.open span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* Menu mobile overlay */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  inset: 0;
+  top: 64px;
+  background: rgba(10, 10, 10, 0.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 40;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+.mobile-nav.open {
+  display: flex;
+  animation: fadeDown 0.25s ease;
+}
+.mobile-nav a,
+.mobile-nav button {
+  font-family: monospace;
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  padding: 0.5rem 0;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.05);
+  width: 100%;
+  text-align: center;
+  transition: color 0.2s;
+}
+.mobile-nav a:hover {
+  color: #fff;
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   GRANDS ÉCRANS (xl ≥ 1280px)
+   ───────────────────────────────────────────────────────────── */
+@media (min-width: 1280px) {
+  .max-w-5xl {
+    max-width: 1100px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   TABLETTES PAYSAGE / PETITS LAPTOPS (lg < 1024px)
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+  /* Projects grid : 2 colonnes */
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Skills grid : 2 colonnes */
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* CV : passe en une colonne */
+  .cv-body-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .cv-sidebar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   TABLETTES PORTRAIT (md < 768px)
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  /* ── Navbar ── */
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  /* ── Hero ── */
+  .hero-title {
+    font-size: 3rem !important;
+    letter-spacing: -1.5px !important;
+  }
+  .hero-subtitle {
+    font-size: 1rem !important;
+  }
+  .hero-ctas {
+    gap: 0.5rem !important;
+  }
+  .hero-ctas a,
+  .hero-ctas button {
+    padding: 0.625rem 1rem !important;
+    font-size: 0.75rem !important;
+  }
+  .hero-stats {
+    gap: 1.25rem !important;
+  }
+
+  /* ── Projects listing ── */
+  .projects-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Project detail ── */
+  .screenshots-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  /* ── About timeline ── */
+  .timeline-gap {
+    gap: 0.875rem !important;
+  }
+
+  /* ── Skills ── */
+  .skills-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Contact layout ── */
+  .contact-layout {
+    grid-template-columns: 1fr !important;
+  }
+  .contact-sidebar {
+    order: -1;
+  }
+
+  /* ── Form ── */
+  .form-row-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── CV ── */
+  .cv-header-row {
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+  .cv-photo {
+    width: 64px !important;
+    height: 64px !important;
+  }
+  .cv-name {
+    font-size: 1.75rem !important;
+  }
+  .cv-contact-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .cv-avail-badge {
+    display: none;
+  }
+  .cv-sidebar {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   MOBILES (sm < 640px)
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 639px) {
+  /* ── Espacement global ── */
+  .section-padding {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* ── Hero ── */
+  .hero-title {
+    font-size: 2.5rem !important;
+    letter-spacing: -1px !important;
+  }
+  .hero-glow {
+    width: 300px !important;
+    height: 200px !important;
+  }
+
+  /* ── Cartes projet ── */
+  .project-card-body {
+    padding: 1rem !important;
+  }
+
+  /* ── Section headers ── */
+  .section-header h1,
+  .section-header h2 {
+    font-size: 1.75rem !important;
+  }
+
+  /* ── Timeline ── */
+  .timeline-content {
+    padding-bottom: 1.25rem !important;
+  }
+
+  /* ── Stats grid ── */
+  .stats-3 {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.75rem !important;
+  }
+  .stat-value {
+    font-size: 1.125rem !important;
+  }
+
+  /* ── Filters ── */
+  .filter-bar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .filter-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ── Stack pills ── */
+  .stack-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+    flex-wrap: nowrap !important;
+  }
+  .stack-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ── CV ── */
+  .cv-paper {
+    border-radius: 0 !important;
+  }
+  .cv-shell {
+    padding: 0 !important;
+  }
+  .cv-topbar {
+    padding: 0.75rem 1rem;
+  }
+  .cv-body-padding {
+    padding: 1rem !important;
+  }
+  .cv-header-padding {
+    padding: 1.25rem 1rem !important;
+  }
+  .cv-name {
+    font-size: 1.5rem !important;
+    letter-spacing: -0.5px !important;
+  }
+  .exp-card,
+  .edu-card {
+    padding: 0.75rem 0.75rem 0.75rem 1rem !important;
+  }
+
+  /* ── About outside-code ── */
+  .outside-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── CTA band ── */
+  .cta-btns-wrap {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .cta-btns-wrap a,
+  .cta-btns-wrap button {
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* ── Footer ── */
+  .footer-inner {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    text-align: center;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   PETITS MOBILES (xs < 480px)
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 479px) {
+  /* ── Hero ── */
+  .hero-title {
+    font-size: 2rem !important;
+  }
+  .hero-badge {
+    font-size: 0.625rem !important;
+    padding: 0.25rem 0.625rem !important;
+  }
+
+  /* ── Nav ── */
+  .nav-pdf-label {
+    display: none;
+  }
+  .nav-pdf-arrow {
+    display: inline;
+  }
+
+  /* ── Project screenshots ── */
+  .screenshots-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .screenshot-item {
+    aspect-ratio: 16/9 !important;
+  }
+
+  /* ── Métriques ── */
+  .metrics-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── CV contact ── */
+  .cv-contact-items {
+    gap: 3px 0 !important;
+  }
+  .cv-title-text {
+    font-size: 0.65rem !important;
+    letter-spacing: 0.12em !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   UTILITAIRES RESPONSIVE GLOBAUX
+   ───────────────────────────────────────────────────────────── */
+
+/* Scrollbar horizontale propre sur mobile */
+.scroll-x {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.scroll-x::-webkit-scrollbar {
+  display: none;
+}
+
+/* Texte ne déborde jamais */
+p,
+h1,
+h2,
+h3,
+h4,
+span,
+li {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Images responsives dans les cartes */
+.card-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Touch targets minimum 44px (accessibilité mobile) */
+a,
+button {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+nav a,
+nav button {
+  min-height: unset;
+}
+
+/* Focus visible pour accessibilité clavier */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid rgba(108, 99, 255, 0.6);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Désactive les animations si l'utilisateur le préfère */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   PRINT — Commun à toutes les pages
+   ───────────────────────────────────────────────────────────── */
+@media print {
+  nav,
+  .no-print,
+  .mobile-menu-btn,
+  .mobile-nav {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  a {
+    text-decoration: underline;
+    color: #000 !important;
+  }
+  .cv-paper {
+    box-shadow: none !important;
+  }
+}

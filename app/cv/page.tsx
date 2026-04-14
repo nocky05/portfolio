@@ -12,10 +12,10 @@ const CV = {
   availability: "Disponible — Alternance / Stage",
   photo: "/images/photo.jpg",
   contact: {
-    email: "jean.enock@email.com",
-    phone: "+225 XX XX XX XX XX",
-    linkedin: "linkedin.com/in/jeanenock",
-    github: "github.com/jeanenock",
+    email: "jeanenockguikan3@gmail.com",
+    phone: "+225 0574411437",
+    linkedin: "linkedin.com/jean-enock-guikan-72b6653b8",
+    github: "github.com/nocky05",
   },
   summary:
     "Développeur Full Stack en formation (BTS Informatique & Développement, diplôme juin 2026). Je construis des interfaces qui tiennent sous contrainte — mobile, web, connexion instable. Orienté architecture propre, maintenabilité et performance réelle.",
@@ -111,15 +111,56 @@ export default function CVPage() {
         }
 
         @keyframes fadeUp {
-          from { opacity:0; transform:translateY(24px); }
+          from { opacity:0; transform:translateY(28px); }
           to   { opacity:1; transform:translateY(0); }
+        }
+        @keyframes fadeLeft {
+          from { opacity:0; transform:translateX(20px); }
+          to   { opacity:1; transform:translateX(0); }
         }
         @keyframes shimmer {
           0%   { background-position: -200% center; }
           100% { background-position:  200% center; }
         }
+        @keyframes lineGrow {
+          from { transform: scaleX(0); transform-origin: left; }
+          to   { transform: scaleX(1); transform-origin: left; }
+        }
 
-        .cv-shell { animation: fadeUp 0.5s ease both; }
+        /* Topbar */
+        .cv-topbar { animation: fadeUp 0.4s ease both 0.05s; opacity:0; }
+
+        /* Feuille A4 */
+        .cv-paper  { animation: fadeUp 0.5s ease both 0.15s; opacity:0; }
+
+        /* Header interne */
+        .cv-photo-anim  { animation: fadeUp 0.5s ease both 0.3s;  opacity:0; }
+        .cv-name-anim   { animation: fadeUp 0.45s ease both 0.4s; opacity:0; }
+        .cv-contact-anim{ animation: fadeUp 0.4s ease both 0.5s;  opacity:0; }
+
+        /* Sections body — colonne gauche */
+        .cv-sec-profil  { animation: fadeUp 0.45s ease both 0.55s; opacity:0; }
+        .cv-sec-exp     { animation: fadeUp 0.45s ease both 0.65s; opacity:0; }
+
+        /* Cards exp en cascade */
+        .cv-exp-0 { animation: fadeUp 0.4s ease both 0.7s;  opacity:0; }
+        .cv-exp-1 { animation: fadeUp 0.4s ease both 0.8s;  opacity:0; }
+        .cv-exp-2 { animation: fadeUp 0.4s ease both 0.9s;  opacity:0; }
+        .cv-exp-3 { animation: fadeUp 0.4s ease both 1.0s;  opacity:0; }
+
+        /* Colonne droite */
+        .cv-sec-edu     { animation: fadeLeft 0.45s ease both 0.6s;  opacity:0; }
+        .cv-sec-skills  { animation: fadeLeft 0.45s ease both 0.75s; opacity:0; }
+        .cv-sec-langs   { animation: fadeLeft 0.45s ease both 0.9s;  opacity:0; }
+
+        /* Footer */
+        .cv-footer-anim { animation: fadeUp 0.4s ease both 1.05s; opacity:0; }
+
+        /* Ligne décorative footer */
+        .cv-footer-line { animation: lineGrow 0.6s ease both 1.1s; }
+
+        /* Bouton dl */
+        .cv-dl-btn { animation: fadeUp 0.4s ease both 1.15s; opacity:0; }
 
         .grad-text {
           background: var(--grad);
@@ -207,6 +248,82 @@ export default function CVPage() {
           display: inline-block;
         }
 
+        /* ── Responsive CV ── */
+        @media (max-width: 768px) {
+          .cv-header-row {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 14px !important;
+          }
+          .cv-photo-anim {
+            width: 70px !important;
+            height: 70px !important;
+          }
+          .cv-name-h1 {
+            font-size: 26px !important;
+            letter-spacing: -0.5px !important;
+          }
+          .cv-title-p {
+            font-size: 9px !important;
+            letter-spacing: 0.14em !important;
+          }
+          .cv-contact-anim {
+            display: none !important;
+          }
+          .cv-body-grid {
+            grid-template-columns: 1fr !important;
+            padding: 16px !important;
+            gap: 16px !important;
+          }
+          .cv-header-padding {
+            padding: 18px 16px 16px !important;
+          }
+          .cv-footer-anim {
+            padding: 10px 16px !important;
+          }
+          .cv-paper {
+            border-radius: 10px !important;
+          }
+          .cv-shell-pad {
+            padding: 12px !important;
+          }
+          .cv-topbar {
+            padding: 0 0 12px 0 !important;
+          }
+          .cv-dl-btn-inner {
+            font-size: 11px !important;
+            padding: 7px 16px !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .cv-name-h1 {
+            font-size: 22px !important;
+          }
+          .cv-header-row {
+            gap: 10px !important;
+          }
+          .cv-photo-anim {
+            width: 58px !important;
+            height: 58px !important;
+          }
+          .cv-body-grid {
+            padding: 12px !important;
+          }
+          .exp-card {
+            padding: 10px 10px 8px 14px !important;
+          }
+          .edu-card {
+            padding: 8px 10px 8px 12px !important;
+          }
+          .cv-contacts-wrap {
+            gap: 4px 10px !important;
+          }
+          .cv-contact-val {
+            font-size: 9px !important;
+          }
+        }
+
         @media print {
           @page { size: A4; margin: 9mm 11mm; }
           html, body {
@@ -216,6 +333,15 @@ export default function CVPage() {
           }
           .no-print { display: none !important; }
           .cv-shell { background: #fff !important; padding: 0 !important; animation: none !important; }
+          .cv-topbar, .cv-paper, .cv-photo-anim, .cv-name-anim,
+          .cv-contact-anim, .cv-sec-profil, .cv-sec-exp,
+          .cv-exp-0, .cv-exp-1, .cv-exp-2, .cv-exp-3,
+          .cv-sec-edu, .cv-sec-skills, .cv-sec-langs,
+          .cv-footer-anim, .cv-dl-btn {
+            animation: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+          }
           .cv-paper { box-shadow: none !important; max-width: 100% !important; border-radius: 0 !important; }
           .exp-card, .edu-card { page-break-inside: avoid; }
         }
@@ -223,11 +349,11 @@ export default function CVPage() {
 
       {/* ── Shell ── */}
       <div
-        className="cv-shell min-h-screen py-8 px-4"
+        className="cv-shell cv-shell-pad min-h-screen py-8 px-4"
         style={{ background: "linear-gradient(135deg, #0c0b1a 0%, #150920 50%, #091420 100%)" }}
       >
         {/* Top bar */}
-        <div className="no-print max-w-[840px] mx-auto mb-5 flex items-center justify-between">
+        <div className="cv-topbar no-print max-w-[840px] mx-auto mb-5 flex items-center justify-between">
           <Link
             href="/"
             style={{ fontFamily: "var(--fb)", fontSize: 12, color: "rgba(255,255,255,0.3)" }}
@@ -238,16 +364,11 @@ export default function CVPage() {
           <button
             onClick={handlePrint}
             style={{
-              fontFamily: "var(--fb)",
-              fontSize: 12,
-              fontWeight: 500,
-              color: "#fff",
-              padding: "9px 22px",
-              borderRadius: 8,
+              fontFamily: "var(--fb)", fontSize: 12, fontWeight: 500,
+              color: "#fff", padding: "9px 22px", borderRadius: 8,
               background: "linear-gradient(135deg, #6C63FF, #E040FB)",
               boxShadow: "0 4px 24px rgba(108,99,255,0.45)",
-              border: "none",
-              cursor: "pointer",
+              border: "none", cursor: "pointer",
             }}
           >
             ↓ Télécharger PDF
@@ -266,6 +387,7 @@ export default function CVPage() {
         >
           {/* ══ HEADER ══ */}
           <div
+            className="cv-header-padding"
             style={{
               background: "linear-gradient(135deg, #0e0b20 0%, #1c0b30 45%, #0a1628 100%)",
               padding: "30px 36px 26px",
@@ -311,9 +433,13 @@ export default function CVPage() {
               }}
             />
 
-            <div style={{ position: "relative", zIndex: 1, display: "flex", gap: 22, alignItems: "flex-start" }}>
+            <div
+              className="cv-header-row"
+              style={{ position: "relative", zIndex: 1, display: "flex", gap: 22, alignItems: "flex-start" }}
+            >
               {/* Photo */}
               <div
+                className="cv-photo-anim"
                 style={{
                   width: 90,
                   height: 90,
@@ -327,7 +453,8 @@ export default function CVPage() {
                   overflow: "hidden",
                 }}
               >
-                {/* Décommente quand tu as ta photo :
+                {/*
+                  Décommente quand tu as ta photo :
                   <Image src={CV.photo} alt="Jean Enock" width={90} height={90}
                     style={{ objectFit:"cover", width:"100%", height:"100%" }} />
                 */}
@@ -346,9 +473,9 @@ export default function CVPage() {
               </div>
 
               {/* Identité */}
-              <div style={{ flex: 1 }}>
+              <div className="cv-name-anim" style={{ flex: 1 }}>
                 <h1
-                  className="grad-text"
+                  className="grad-text cv-name-h1"
                   style={{
                     fontFamily: "'Syne', sans-serif",
                     fontSize: 38,
@@ -362,6 +489,7 @@ export default function CVPage() {
                 </h1>
 
                 <p
+                  className="cv-title-p"
                   style={{
                     fontFamily: "'Syne', sans-serif",
                     fontSize: 11,
@@ -376,7 +504,7 @@ export default function CVPage() {
                 </p>
 
                 {/* Contact */}
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 20px" }}>
+                <div className="cv-contacts-wrap" style={{ display: "flex", flexWrap: "wrap", gap: "6px 20px" }}>
                   {[
                     { label: "✉", val: CV.contact.email },
                     { label: "☎", val: CV.contact.phone },
@@ -398,6 +526,7 @@ export default function CVPage() {
                         {c.label}
                       </span>
                       <span
+                        className="cv-contact-val"
                         style={{
                           fontFamily: "'DM Sans', sans-serif",
                           fontSize: 10,
@@ -413,7 +542,7 @@ export default function CVPage() {
 
               {/* Badge */}
               <div
-                className="no-print"
+                className="cv-contact-anim no-print"
                 style={{
                   flexShrink: 0,
                   padding: "5px 12px",
@@ -430,9 +559,9 @@ export default function CVPage() {
               </div>
             </div>
           </div>
-
           {/* ══ BODY ══ */}
           <div
+            className="cv-body-grid"
             style={{
               padding: "26px 36px 28px",
               display: "grid",
@@ -444,7 +573,7 @@ export default function CVPage() {
             {/* ── Colonne gauche ── */}
             <div>
               {/* Profil */}
-              <div style={{ marginBottom: 22 }}>
+              <div className="cv-sec-profil" style={{ marginBottom: 22 }}>
                 <div className="sec-title">Profil</div>
                 <p
                   style={{
@@ -460,10 +589,10 @@ export default function CVPage() {
               </div>
 
               {/* Expériences */}
-              <div>
+              <div className="cv-sec-exp">
                 <div className="sec-title">Expériences & Projets</div>
-                {CV.experiences.map((exp) => (
-                  <div key={exp.title} className="exp-card">
+                {CV.experiences.map((exp, idx) => (
+                  <div key={exp.title} className={`exp-card cv-exp-${idx}`}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 4 }}>
                       <div>
                         <h3
@@ -540,7 +669,7 @@ export default function CVPage() {
             {/* ── Colonne droite ── */}
             <div>
               {/* Formation */}
-              <div style={{ marginBottom: 22 }}>
+              <div className="cv-sec-edu" style={{ marginBottom: 22 }}>
                 <div className="sec-title">Formation</div>
                 {CV.education.map((edu) => (
                   <div key={edu.degree} className="edu-card">
@@ -606,7 +735,7 @@ export default function CVPage() {
               </div>
 
               {/* Compétences */}
-              <div style={{ marginBottom: 22 }}>
+              <div className="cv-sec-skills" style={{ marginBottom: 22 }}>
                 <div className="sec-title">Compétences</div>
                 {Object.entries(CV.skills).map(([domain, items]) => (
                   <div key={domain} style={{ marginBottom: 12 }}>
@@ -635,7 +764,7 @@ export default function CVPage() {
               </div>
 
               {/* Langues */}
-              <div>
+              <div className="cv-sec-langs">
                 <div className="sec-title">Langues</div>
                 {CV.languages.map((l) => (
                   <div
@@ -676,9 +805,9 @@ export default function CVPage() {
               </div>
             </div>
           </div>
-
           {/* ══ FOOTER ══ */}
           <div
+            className="cv-footer-anim"
             style={{
               padding: "11px 36px",
               background: "linear-gradient(135deg, #0e0b20, #1c0b30)",
@@ -721,7 +850,7 @@ export default function CVPage() {
         </div>
 
         {/* Bouton bas */}
-        <div className="no-print max-w-[840px] mx-auto mt-5 flex justify-end">
+        <div className="cv-dl-btn no-print max-w-[840px] mx-auto mt-5 flex justify-end">
           <button
             onClick={handlePrint}
             style={{
