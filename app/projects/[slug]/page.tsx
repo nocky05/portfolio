@@ -23,7 +23,7 @@ interface CaseStudy {
   solution: string;
   role: string;
   learnings: string;
-  screenshots: { label: string; image?: string; placeholder: string }[];
+  screenshots: { label: string; image?: string; placeholder: string; isDesktop?: boolean }[];
   metrics?: { val: string; label: string }[];
 }
 
@@ -86,9 +86,21 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
     role: `Architecture full-stack, design du schéma de base de données, développement des pages de découverte et du système de recommandation basique.`,
     learnings: `Structurer la base de données correctement dès le début évite des migrations douloureuses. Le temps passé à modéliser les relations (artiste ↔ track ↔ playlist ↔ user) a divisé par 3 la complexité des requêtes.`,
     screenshots: [
-      { label: "Discover", placeholder: "MH" },
-      { label: "Player", placeholder: "MH" },
-      { label: "Profile", placeholder: "MH" },
+      {
+        label: "Landing Page",
+        image: "/images/projects/melodyhub/home.png",
+        placeholder: "MH",
+      },
+      {
+        label: "Espace Utilisateur",
+        image: "/images/projects/melodyhub/auth.png",
+        placeholder: "MH",
+      },
+      {
+        label: "Création de compte",
+        image: "/images/projects/melodyhub/signup.png",
+        placeholder: "MH",
+      },
     ],
     metrics: [
       { val: "SSR", label: "Rendu côté serveur" },
@@ -108,9 +120,21 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
     role: `Design, architecture, développement complet.`,
     learnings: `L'outil de conversion le plus efficace n'est pas le design — c'est la clarté du message. Chaque section a un seul objectif.`,
     screenshots: [
-      { label: "Hero", placeholder: "PF" },
-      { label: "Projects", placeholder: "PF" },
-      { label: "Contact", placeholder: "PF" },
+      {
+        label: "Accueil & Hero",
+        image: "/images/projects/portfolio/home.png",
+        placeholder: "PF",
+      },
+      {
+        label: "Galerie de Projets",
+        image: "/images/projects/portfolio/projects.png",
+        placeholder: "PF",
+      },
+      {
+        label: "Expertise Technique",
+        image: "/images/projects/portfolio/skills.png",
+        placeholder: "PF",
+      },
     ],
   },
   ecommerce: {
@@ -126,14 +150,110 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
     role: `Développement full-stack complet : architecture de la boutique, dashboard admin (gestion commandes, notifications temps réel, suivi livraison), authentification utilisateur (inscription, connexion, profil, historique commandes), refonte UI/UX de la navbar et de la page d'accueil, correction des bugs cross-browser sur les cartes produits, stabilisation des scripts de migration Supabase.`,
     learnings: `La réactivité mobile en e-commerce est non-négociable — les icônes et espacements du header ont nécessité plusieurs itérations pour tenir sur tous les viewports. Les notifications temps réel via Supabase Realtime sont puissantes mais fragiles si le système d'abonnement n'est pas correctement nettoyé (unsubscribe au unmount).`,
     screenshots: [
-      { label: "Boutique", placeholder: "EC" },
-      { label: "Admin", placeholder: "EC" },
-      { label: "Profil", placeholder: "EC" },
+      {
+        label: "Accueil - Recherche",
+        image: "/images/projects/ecommerce/home.png",
+        placeholder: "EC",
+      },
+      {
+        label: "Détails Produit",
+        image: "/images/projects/ecommerce/product.png",
+        placeholder: "EC",
+      },
+      {
+        label: "Panier & Livraison",
+        image: "/images/projects/ecommerce/cart.png",
+        placeholder: "EC",
+      },
+      {
+        label: "Catégories & Filtres",
+        image: "/images/projects/ecommerce/category.png",
+        placeholder: "EC",
+      },
+      {
+        label: "Menu Mobile",
+        image: "/images/projects/ecommerce/menu.png",
+        placeholder: "EC",
+      },
     ],
     metrics: [
       { val: "4", label: "Modules clés" },
       { val: "RT", label: "Commandes temps réel" },
       { val: "SSR", label: "Pages boutique" },
+    ],
+  },
+  "bankcompare-ci": {
+    slug: "bankcompare-ci",
+    title: "BankCompare CI",
+    pitch: "Transparence totale sur les services bancaires en Côte d'Ivoire.",
+    tag: "Full-Stack · Fintech Solution",
+    stack: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "Google Gemini API"],
+    github: "https://github.com/",
+    problem: `Le secteur bancaire ivoirien est complexe et peu transparent. Les utilisateurs (jeunes, PME, diaspora) ont du mal à comparer les frais réels entre les banques traditionnelles (SGCI, BOA, etc.) et les solutions Mobile Money (Wave, Orange, MTN). Les informations sont souvent cachées dans des PDFs indigestes.`,
+    solution: `Une plateforme complète intégrant un Agent IA capable d'analyser les grilles tarifaires BCEAO et de donner des conseils financiers impartiaux. L'application propose des simulateurs de coûts annuels, des comparateurs de cartes bancaires et un système de recommandation personnalisé basé sur le profil utilisateur (étudiant, salarié, entrepreneur).`,
+    role: `Architecture Full-Stack et intégration de l'Intelligence Artificielle. Développement du moteur de comparaison, mise en place de la base de données des banques sous Supabase, et création de l'IA Agent capable d'extraire des données de PDFs de conditions bancaires pour aider l'utilisateur à économiser.`,
+    learnings: `Maîtrise des réglementations bancaires régionales (TBB, TOB), et optimisation des LLMs pour l'analyse de données chiffrées précises. L'importance de la neutralité et de la clarté UX dans des outils financiers est cruciale pour la confiance de l'utilisateur.`,
+    screenshots: [
+      {
+        label: "Aperçu Landing Page",
+        image: "/images/projects/bankcompare-ci/desktop-home.png",
+        placeholder: "BC",
+        isDesktop: true,
+      },
+      {
+        label: "Guide d'utilisation",
+        image: "/images/projects/bankcompare-ci/desktop-steps.png",
+        placeholder: "BC",
+        isDesktop: true,
+      },
+      {
+        label: "Avis & Statistiques",
+        image: "/images/projects/bankcompare-ci/desktop-reviews.png",
+        placeholder: "BC",
+        isDesktop: true,
+      },
+      {
+        label: "Tableau de Bord",
+        image: "/images/projects/bankcompare-ci/desktop-dashboard.png",
+        placeholder: "BC",
+        isDesktop: true,
+      },
+      {
+        label: "Simulateur d'Épargne",
+        image: "/images/projects/bankcompare-ci/desktop-simulator.png",
+        placeholder: "BC",
+        isDesktop: true,
+      },
+      {
+        label: "Accueil Mobile",
+        image: "/images/projects/bankcompare-ci/mobile-home.png",
+        placeholder: "BC",
+      },
+      {
+        label: "Tableau de Bord Mobile",
+        image: "/images/projects/bankcompare-ci/mobile-dashboard.png",
+        placeholder: "BC",
+      },
+      {
+        label: "Offre Premium",
+        image: "/images/projects/bankcompare-ci/mobile-premium.png",
+        placeholder: "BC",
+      },
+      {
+        label: "Suivi du Patrimoine",
+        image: "/images/projects/bankcompare-ci/mobile-chart.png",
+        placeholder: "BC",
+      },
+      {
+        label: "Détails Crédit",
+        image: "/images/projects/bankcompare-ci/mobile-credit.png",
+        placeholder: "BC",
+      },
+    ],
+    metrics: [
+      { val: "50+", label: "Services comparés" },
+      { val: "100%", label: "Neutralité garantie" },
+      { val: "IA", label: "Agent Expert Piloté" },
     ],
   },
 };
@@ -143,14 +263,16 @@ function Screenshot({
   label,
   image,
   placeholder,
+  isDesktop,
 }: {
   label: string;
   image?: string;
   placeholder: string;
+  isDesktop?: boolean;
 }) {
   return (
-    <div className="border border-white/8 rounded-sm overflow-hidden bg-[#0f0f0f] group">
-      <div className="aspect-[9/16] relative flex flex-col items-center justify-center gap-2 overflow-hidden bg-white/[0.03]">
+    <div className={`border border-white/8 rounded-sm overflow-hidden bg-[#0f0f0f] group ${isDesktop ? 'col-span-3' : ''}`}>
+      <div className={`${isDesktop ? 'aspect-video' : 'aspect-[9/16]'} relative flex flex-col items-center justify-center gap-2 overflow-hidden bg-white/[0.03]`}>
         {image ? (
           <Image
             src={image}
@@ -297,6 +419,7 @@ export default function ProjectDetailPage({
                     label={s.label}
                     image={s.image}
                     placeholder={s.placeholder}
+                    isDesktop={s.isDesktop}
                   />
                 ))}
               </div>
